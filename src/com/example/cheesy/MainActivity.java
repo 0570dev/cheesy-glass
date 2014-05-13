@@ -4,26 +4,26 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.google.android.glass.app.Card;
 
 public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.activity_main);
 
 		displayQuote();
 	}
 
 	private void displayQuote() {
 		Quote quote = Quotes.get();
-		TextView quoteLabel = (TextView) findViewById(R.id.quote);
-		quoteLabel.setText(quote.getText());
 
-		TextView attributionLabel = (TextView) findViewById(R.id.attribution);
-		attributionLabel.setText(quote.getAttribution());
+		Card card = new Card(this);
+		card.setText(quote.getText());
+		card.setFootnote(quote.getAttribution());
+
+		setContentView(card.getView());
 	}
 
 	@Override
